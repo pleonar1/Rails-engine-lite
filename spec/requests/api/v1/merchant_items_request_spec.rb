@@ -11,5 +11,15 @@ RSpec.describe "Merchant Items Reuests", :type => :request do
 
     merchant_items = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
+    expect(merchant_items).to have_key(:data)
+    merchant_items[:data].each do |item|
+      expect(item).to have_key(:id)
+      expect(item).to have_key(:type)
+      expect(item).to have_key(:attributes)
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes]).to have_key(:unit_price)
+      expect(item[:attributes]).to have_key(:merchant_id)
+    end
   end
 end
