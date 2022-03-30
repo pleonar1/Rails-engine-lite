@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Items Reuests", :type => :request do
+RSpec.describe "Items Requests", :type => :request do
   it "can get all items" do
     merchant1 = create(:merchant)
   	merchant2 = create(:merchant)
