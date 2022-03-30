@@ -8,9 +8,8 @@ RSpec.describe "Merchants Reuests", :type => :request do
     get '/api/v1/merchants'
 
     merchants = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
     expect(response).to be_successful
-
-
   end
 
   it "can get one merchant" do
