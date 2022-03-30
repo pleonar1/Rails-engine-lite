@@ -8,8 +8,6 @@ RSpec.describe "Merchants Reuests", :type => :request do
     get '/api/v1/merchants'
 
     merchants = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
-    require "pry"; binding.pry
     expect(response).to be_successful
     expect(merchants).to have_key(:data)
     merchants[:data].each do |merchant|
@@ -30,8 +28,11 @@ RSpec.describe "Merchants Reuests", :type => :request do
 
     merchant = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
-    #write test the way eldridge showed
-
+    expect(merchant[:data]).to have_key(:id)
+    expect(merchant[:data]).to have_key(:type)
+    expect(merchant[:data]).to have_key(:attributes)
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant[:data].count).to eq(3)
   end
 
   it "can get all items for a given merchant id" do
