@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe "Merchants Reuests", :type => :request do
   it "can get all merchants" do
     create_list(:merchant, 3)
@@ -33,9 +32,6 @@ RSpec.describe "Merchants Reuests", :type => :request do
     expect(merchant[:data]).to have_key(:attributes)
     expect(merchant[:data][:attributes]).to have_key(:name)
     expect(merchant[:data].count).to eq(3)
-  end
-
-  it "can get all items for a given merchant id" do
-
+    expect(merchant[:id]).to_not eq(merchant2.id)
   end
 end
