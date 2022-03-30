@@ -8,7 +8,6 @@ RSpec.describe "Merchants Reuests", :type => :request do
     get '/api/v1/merchants'
 
     merchants = JSON.parse(response.body, symbolize_names: true)
-    
     expect(response).to be_successful
   end
 
