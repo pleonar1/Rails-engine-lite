@@ -8,6 +8,8 @@ RSpec.describe "Merchants Reuests", :type => :request do
     get '/api/v1/merchants'
 
     merchants = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
+    require "pry"; binding.pry
     expect(response).to be_successful
     expect(merchants).to have_key(:data)
     merchants[:data].each do |merchant|
@@ -20,6 +22,15 @@ RSpec.describe "Merchants Reuests", :type => :request do
   end
 
   it "can get one merchant" do
+    create_list(:merchant, 2)
+    merchant1 = Merchant.first
+    merchant2 = Merchant.last
+
+    get "/api/v1/merchants/#{merchant1.id}"
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+    expect(response).to be_successful
+    #write test the way eldridge showed
 
   end
 
