@@ -39,6 +39,7 @@ group :development, :test do
   gem 'web-console', '>= 3.3.0'
   gem 'launchy'
   gem 'simplecov'
+  gem 'rspec-rails'
 end
 
 group :development do
