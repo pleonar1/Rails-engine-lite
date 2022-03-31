@@ -53,10 +53,17 @@ RSpec.describe "Items Requests", :type => :request do
 
   it "can create an item" do
     merchant1 = create(:merchant)
+    item_params = {
+                  "name": "value1",
+                  "description": "value2",
+                  "unit_price": 100.99,
+                  "merchant_id": merchant1.id
+                  }
+    headers = { 'CONTENT_TYPE' => 'application/json' }
 
-    post "/api/v1/items"
+    post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+    created_item = Item.last
 
-    item = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
 
 
@@ -70,7 +77,7 @@ RSpec.describe "Items Requests", :type => :request do
 
   end
 
-  it "can get the merchant data for a gicen item id" do
+  it "can get the merchant data for a given item id" do
 
   end
 end
