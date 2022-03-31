@@ -52,6 +52,13 @@ RSpec.describe "Items Requests", :type => :request do
   end
 
   it "can create an item" do
+    merchant1 = create(:merchant)
+
+    post "/api/v1/items"
+
+    item = JSON.parse(response.body, symbolize_names: true)
+    expect(response).to be_successful
+
 
   end
 
