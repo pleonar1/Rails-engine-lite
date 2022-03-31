@@ -5,7 +5,7 @@ RSpec.describe "Merchants Requests", :type => :request do
     create_list(:merchant, 3)
 
     get '/api/v1/merchants'
-
+    #Add data types
     merchants = JSON.parse(response.body, symbolize_names: true)
     expect(response).to be_successful
     expect(merchants).to have_key(:data)
