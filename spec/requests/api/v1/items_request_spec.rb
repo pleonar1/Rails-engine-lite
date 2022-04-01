@@ -101,7 +101,7 @@ RSpec.describe "Items Requests", :type => :request do
     delete "/api/v1/items/#{item1.id}", headers: headers
 
     expect(response).to be_successful
-
+    expect(Item.count).to eq 0 
   end
 
   it "can get the merchant data for a given item id" do
