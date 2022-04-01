@@ -93,6 +93,14 @@ RSpec.describe "Items Requests", :type => :request do
   end
 
   it "can delete an item" do
+    merchant1 = create(:merchant)
+    item1 = create(:item, merchant_id: merchant1.id)
+
+    headers = { 'CONTENT_TYPE' => 'application/json' }
+
+    delete "/api/v1/items/#{item1.id}", headers: headers
+
+    expect(response).to be_successful
 
   end
 
