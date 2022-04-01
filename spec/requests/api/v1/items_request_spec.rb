@@ -85,9 +85,11 @@ RSpec.describe "Items Requests", :type => :request do
     patch "/api/v1/items/#{item1.id}", headers: headers, params: JSON.generate(item: item_params)
 
     expect(response).to be_successful
-
-
-
+    updated_item = Item.find_by(id: item1.id)
+    expect(updated_item.name).to eq(item_params[:name])
+    expect(updated_item.description).to eq(item_params[:description])
+    expect(updated_item.unit_price).to eq(item_params[:unit_price])
+    expect(updated_item.merchant_id).to eq(item_params[:merchant_id])
   end
 
   it "can delete an item" do
