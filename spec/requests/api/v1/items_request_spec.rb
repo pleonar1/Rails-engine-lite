@@ -52,18 +52,51 @@ RSpec.describe "Items Requests", :type => :request do
   end
 
   it "can create an item" do
+    merchant1 = create(:merchant)
+    item_params = {
+                  "name": "value1",
+                  "description": "value2",
+                  "unit_price": 100.99,
+                  "merchant_id": merchant1.id
+                  }
+    headers = { 'CONTENT_TYPE' => 'application/json' }
 
+    post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+    created_item = Item.last
+
+    expect(response).to be_successful
+    expect(created_item.name).to eq(item_params[:name])
+    expect(created_item.description).to eq(item_params[:description])
+    expect(created_item.unit_price).to eq(item_params[:unit_price])
+    expect(created_item.merchant_id).to eq(item_params[:merchant_id])
   end
 
   it "can edit an item" do
+    merchant1 = create(:merchant)
+    item1 = create(:item, merchant_id: merchant1.id)
+    item_params = {
+                  "name": "value1",
+                  "description": "value2",
+                  "unit_price": 100.99,
+                  "merchant_id": merchant1.id
+                  }
+    headers = { 'CONTENT_TYPE' => 'application/json' }
 
+    patch "/api/v1/items/#{item1.id}", headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response).to be_successful
+    updated_item = Item.find_by(id: item1.id)
+    expect(updated_item.name).to eq(item_params[:name])
+    expect(updated_item.description).to eq(item_params[:description])
+    expect(updated_item.unit_price).to eq(item_params[:unit_price])
+    expect(updated_item.merchant_id).to eq(item_params[:merchant_id])
   end
 
   it "can delete an item" do
 
   end
 
-  it "can get the merchant data for a gicen item id" do
+  it "can get the merchant data for a given item id" do
 
   end
 end
