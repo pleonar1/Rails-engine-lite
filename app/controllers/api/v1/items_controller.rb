@@ -36,6 +36,14 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    if Item.exists?(params[:id])
+     render json: Item.delete(params[:id])
+   else
+     render :status => 404
+   end
+  end
+
   private
 
     def item_params
