@@ -17,11 +17,10 @@ class Merchant < ApplicationRecord
   end
 
   def self.top_merchants_by_items_sold(number)
-    Merchant
-    .joins(invoices: [:invoice_items, :transactions])
+    joins(invoices: [:invoice_items, :transactions])
     .where(transactions: { result: 'success' }, invoices: { status: 'shipped'})
     .group('merchants.id')
-    .select("merchants.*, SUM(invoice_items.quantity) as items_sold")
+    .select("merchants.*, SUM(invoice_items.quantity) AS items_sold")
     .order('items_sold DESC')
     .limit(number)
   end
