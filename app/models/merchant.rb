@@ -21,7 +21,7 @@ class Merchant < ApplicationRecord
     .where(transactions: { result: 'success' }, invoices: { status: 'shipped'})
     .group('merchants.id')
     .select("merchants.*, SUM(invoice_items.quantity) AS items_sold")
-    .order('items_sold DESC')
+    .order(items_sold: :desc)
     .limit(number)
   end
 
